@@ -1,3 +1,6 @@
 .gitignore
 test_params_create
 tests.py
+models/engine/__pycache__/__init__.cpython-38.pyc
+models/engine/__pycache__/file_storage.cpython-38.pyc
+models/__pycache__/
