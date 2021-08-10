@@ -130,20 +130,21 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[class_name]()
 
         for pair in args_list:
-            arguments = pair.split('=')
-            value = arguments[1].replace('"', '')
-            value = arguments[1].replace('_', ' ')
-            try:
-                if '.' in arguments[1]:
-                    value = float(value)
-                else:
-                    value = int(value)
-            except ValueError:
-                pass
-            setattr(new_instance, arguments[0], value)
+            if pair.find("=") > 0:
+                arguments = pair.split('=')
+                try:
+                    arguments[1] = int(arguments[1])
+                except Exception:
+                    try:
+                        arguments[1] = float(arguments[1])
+                    except Exception:
+                        arguments[1] = arguments[1].replace('"', '')
+                        arguments[1] = arguments[1].replace("'", "")
+                        arguments[1] = arguments[1].replace('_', ' ')
+            setattr(new_instance, arguments[0], arguments[1])
 
-        print(new_instance.id)
         storage.new(new_instance)
+        print(new_instance.id)
         storage.save()
 
     def help_create(self):
