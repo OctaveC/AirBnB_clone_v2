@@ -143,4 +143,4 @@ Count the instances of the specified class:
 
 *   [Etienne Brun](https://github.com/EtienneBrJ)
 
-*   [Alrick Deperiers](https://github.com/hollaze)
+*   [Octave Collombel](https://github.com/OctaveC)

@@ -11,7 +11,6 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from os import getenv
 
 
-
 class DBStorage:
     """This class manages storage of hbnb models in JSON format"""
     __engine = None
@@ -38,8 +37,8 @@ class DBStorage:
                 new_d[key_id] = obj
         else:
             classes = ["State", "City", "Place", "Review", "User", "Amenity"]
-            for clas in classes:
-                for obj in self.__session.query(clas).all():
+            for cls in classes:
+                for obj in self.__session.query(cls).all():
                     key_id = type(obj).__name__ + '.' + obj.id
                     new_d[key_id] = obj
         return new_d
