@@ -3,13 +3,14 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models.__init__ import storage
+from models import storage
 from models.user import User
 from models.place import Place
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import models
 
 
 class HBNBCommand(cmd.Cmd):
@@ -79,7 +80,7 @@ class HBNBCommand(cmd.Cmd):
                         _args = pline
                     else:
                         _args = pline.replace(',', '')
-                        _args = _args.replace('\"', '')
+                        # _args = _args.replace('\"', '')
             line = ' '.join([_cmd, _cls, _id, _args])
 
         except Exception as mess:
@@ -130,20 +131,21 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[class_name]()
 
         for pair in args_list:
-            arguments = pair.split('=')
-            value = arguments[1].replace('"', '')
-            value = arguments[1].replace('_', ' ')
-            try:
-                if '.' in arguments[1]:
-                    value = float(value)
-                else:
-                    value = int(value)
-            except ValueError:
-                pass
-            setattr(new_instance, arguments[0], value)
+            if pair.find("=") > 0:
+                arguments = pair.split('=')
+                try:
+                    arguments[1] = int(arguments[1])
+                except Exception:
+                    try:
+                        arguments[1] = float(arguments[1])
+                    except Exception:
+                        arguments[1] = arguments[1].replace('"', '')
+                        arguments[1] = arguments[1].replace("'", "")
+                        arguments[1] = arguments[1].replace('_', ' ')
+            setattr(new_instance, arguments[0], arguments[1])
 
-        print(new_instance.id)
         storage.new(new_instance)
+        print(new_instance.id)
         storage.save()
 
     def help_create(self):
@@ -219,21 +221,20 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
-        object_list = []
 
-        if args:
-            class_name = args.split(' ')[0]
-            if class_name not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-                return
-            for objects in storage.all(args).values():
-                object_list.append(str(objects))
+        args_list = args.split()
+        obj_list = []
+        if args not in self.class_list and len(args_list) > 0:
+            print("** class doesn't exist **")
+            return
         else:
-            for objects in storage.all().values():
-                object_list.append(str(objects))
-
-        print(object_list)
-
+            all_objs = models.storage.all()
+            for obj in all_objs.values():
+                if len(args) > 0 and args_list[0] == obj.__class__.__name__:
+                    obj_list.append(obj.__str__())
+                elif len(args_list) == 0:
+                    obj_list.append(obj.__str__())
+            print(obj_list)
 
 
     def help_all(self):
