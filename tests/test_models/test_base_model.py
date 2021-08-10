@@ -21,13 +21,6 @@ class test_basemodel(unittest.TestCase):
         """ Setup. """
         pass
 
-    def tearDown(self):
-    	""" Opposite of Setup """
-        try:
-            os.remove('file.json')
-        except:
-            pass
-
     def test_default(self):
         """ Default tests """
         i = self.value()
@@ -48,15 +41,6 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
-    def test_save(self):
-        """ Testing save """
-        i = self.value()
-        i.save()
-        key = self.name + "." + i.id
-        with open('file.json', 'r') as f:
-            j = json.load(f)
-            self.assertEqual(j[key], i.to_dict())
-
     def test_str(self):
         """ Various tests """
         i = self.value()
@@ -73,12 +57,6 @@ class test_basemodel(unittest.TestCase):
         """ Various tests """
         n = {None: None}
         with self.assertRaises(TypeError):
-            new = self.value(**n)
-
-    def test_kwargs_one(self):
-        """ Various tests """
-        n = {'Name': 'test'}
-        with self.assertRaises(KeyError):
             new = self.value(**n)
 
     def test_id(self):
