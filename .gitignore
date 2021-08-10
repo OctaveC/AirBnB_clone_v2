@@ -7,3 +7,5 @@ models/engine/__pycache__/file_storage.cpython-38.pyc
 models/__pycache__/
 models/engine/__pycache__/
 file.json
+tests/test_models/test_engine/__pycache__/
+tests/test_models/__pycache__/
