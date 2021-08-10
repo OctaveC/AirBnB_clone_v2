@@ -13,7 +13,7 @@ class FileStorage:
         if cls:
             new_l = {}
             for key, obj in self.__objects.items():
-                if isinstance(obj, cls):
+                if obj.__class__ == cls or obj.__class__.__name__ == cls:
                     new_l[key] = obj
             return new_l
 
