@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """This module defines a class to manage file storage for hbnb clone"""
+import models
 from models.base_model import BaseModel, Base
 from models.user import User
 from models.place import Place
@@ -7,6 +8,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 from models.place import Place
+from models.state import State
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -25,7 +27,6 @@ class DBStorage:
                                        getenv("HBNB_MYSQL_HOST"),
                                        getenv("HBNB_MYSQL_DB")),
                                		pool_pre_ping=True)
-
         Base.metadata.create_all(self.__engine)
         if getenv("HBNB_ENV") == "test":
         	Base.metadata.drop_all(self.__engine)
@@ -34,15 +35,17 @@ class DBStorage:
         """ query on the current database session (self.__session)
         all objects depending of the class name (argument cls) """
         new_d = {}
+        if type(cls) == str:
+            cls = eval(cls)
         if cls:
             for obj in self.__session.query(cls).all():
-                key_id = type(obj).__name__ + '.' + obj.id
+                key_id = obj.__class__.__name__ + '.' + obj.id
                 new_d[key_id] = obj
         else:
             classes = ["State", "City", "Place", "Review", "User", "Amenity"]
             for clas in classes:
                 for obj in self.__session.query(clas).all():
-                    key_id = type(obj).__name__ + '.' + obj.id
+                    key_id = obj.__class__.__name__ + '.' + obj.id
                     new_d[key_id] = obj
         return new_d
 

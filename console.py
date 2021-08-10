@@ -19,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
     # determines prompt for interactive/non-interactive modes
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
     class_list = ['BaseModel', 'User', 'State',
-                 'City', 'Amenity', 'Place', 'Review']
+                  'City', 'Amenity', 'Place', 'Review']
     classes = {
                'BaseModel': BaseModel, 'User': User, 'Place': Place,
                'State': State, 'City': City, 'Amenity': Amenity,
@@ -221,21 +221,23 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
+        object_list = []
 
-        args_list = args.split()
-        obj_list = []
-        if args not in self.class_list and len(args_list) > 0:
-            print("** class doesn't exist **")
-            return
+        if not args:
+            for objects in storage.all().values():
+                object_list.append(str(objects))
+
         else:
-            all_objs = models.storage.all()
-            for obj in all_objs.values():
-                if len(args) > 0 and args_list[0] == obj.__class__.__name__:
-                    obj_list.append(obj.__str__())
-                elif len(args_list) == 0:
-                    obj_list.append(obj.__str__())
-            print(obj_list)
+            class_name = args.split(' ')[0]
 
+            if class_name not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+                return
+
+            for objects in storage.all(args).values():
+                object_list.append(str(objects))
+
+        print(object_list)
 
     def help_all(self):
         """ Help information for the all command """
