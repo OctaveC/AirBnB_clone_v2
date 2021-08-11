@@ -19,10 +19,11 @@ class test_dbstorage(unittest.TestCase):
     def setUp(cls):
         """ Seting up """
         cls.user = User()
-        cls.user.first_name = "First"
         cls.user.last_name = "Last"
-        cls.user.password = "pwd"
+        cls.user.first_name = "First"
         cls.user.email = "important@mail.com"
+        cls.user.password = "pwd"
+
         cls.storage = FileStorage()
 
     def tearDown(self):
@@ -33,9 +34,18 @@ class test_dbstorage(unittest.TestCase):
             pass
 
 
-    def testNew(self):
+    def test_new_db(self):
         """ testing new """
         for obj in storage.all(User).values():
             temp = obj
             self.assertTrue(temp is obj)
+
+
+    def testAll(self):
+        """
+           Test the all function in DB Storage.
+        """
+        obj = storage.all()
+        self.assertEqual(type(obj), dict)
+
 

@@ -42,8 +42,7 @@ class DBStorage:
                 key_id = obj.__class__.__name__ + '.' + obj.id
                 new_d[key_id] = obj
         else:
-            classes = ["State", "City", "Place", "Review", "User", "Amenity"]
-            for clas in classes:
+            for clas in (Amenity, City, Place, Review, State, User):
                 for obj in self.__session.query(clas).all():
                     key_id = obj.__class__.__name__ + '.' + obj.id
                     new_d[key_id] = obj
