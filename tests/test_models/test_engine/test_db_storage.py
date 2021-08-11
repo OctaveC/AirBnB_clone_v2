@@ -37,7 +37,6 @@ class test_dbstorage(unittest.TestCase):
         except Exception:
             pass
 
-
     def test_new_db(self):
         """ testing new """
         for obj in storage.all(User).values():
@@ -48,14 +47,3 @@ class test_dbstorage(unittest.TestCase):
         """ testing all """
         obj = storage.all()
         self.assertEqual(type(obj), dict)
-
-    def __get_key(self, prmInstance):
-        """ Tool function """
-        return "{}.{}".format(prmInstance.__class__.__name__, prmInstance.id)
-
-    def test_reload_db(self):
-        """ test for the reload """
-        self.user.save()
-        storage.reload()
-        key = self.__get_key(self.user)
-        self.assertIn(key, storage.all().keys())
