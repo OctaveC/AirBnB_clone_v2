@@ -71,7 +71,6 @@ class test_fileStorage(unittest.TestCase):
         new2 = BaseModel(**thing)
         self.assertNotEqual(os.path.getsize('file.json'), 0)
 
-
     @unittest.skipIf(models.storage_type == 'db', "testing DB storage instead")
     def test_reload_from_nothing(self):
         """ testing relopading nothing """

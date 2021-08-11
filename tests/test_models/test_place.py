@@ -9,6 +9,7 @@ from datetime import datetime
 from unittest import mock
 import models
 
+
 class test_Place(test_basemodel):
     """ Class for tests Place """
 
@@ -56,7 +57,6 @@ class test_Place(test_basemodel):
         else:
             pass
 
-
     def test_number_bathrooms(self):
         """
             Test Class attribute
@@ -67,6 +67,7 @@ class test_Place(test_basemodel):
             self.assertEqual(place.number_bathrooms, None)
         else:
             pass
+
     def test_number_rooms(self):
         """
             Test Class attribute
@@ -75,6 +76,7 @@ class test_Place(test_basemodel):
         self.assertTrue(hasattr(place, "number_rooms"))
         if models.storage_type == "db":
             self.assertEqual(place.number_rooms, None)
+
     def test_max_guest(self):
         """
             Test Class attribute
@@ -118,6 +120,7 @@ class test_Place(test_basemodel):
             self.assertEqual(place.longitude, None)
         else:
             pass
+
     def test_amenity_ids(self):
         """ various tests """
         new = self.value()

@@ -10,7 +10,6 @@ import os
 
 class test_basemodel(unittest.TestCase):
     """ Class tests for Base Model """
-
     def __init__(self, *args, **kwargs):
         """ Init Base models """
         super().__init__(*args, **kwargs)
