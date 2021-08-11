@@ -44,45 +44,18 @@ class test_dbstorage(unittest.TestCase):
             temp = obj
             self.assertTrue(temp is obj)
 
-
-    def test_all(self):
-        """ test for all """
+    def test_all_db(self):
+        """ testing all """
         obj = storage.all()
         self.assertEqual(type(obj), dict)
 
-    def testState(self):
-        """ testing various objects """
-        state = State(name="machin")
-        if state.id in storage.all():
-            self.assertTrue(state.name, "machin")
+    def __get_key(self, prmInstance):
+        """ Tool function """
+        return "{}.{}".format(prmInstance.__class__.__name__, prmInstance.id)
 
-    def testCity(self):
-        """ testing various objects """
-        city = City(name="biduche")
-        if city.id in storage.all():
-            self.assertTrue(city.name, "biduche")
-
-    def testPlace(self):
-        """ testing various objects """
-        place = Place(name="truc", number_rooms=5)
-        if place.id in storage.all():
-            self.assertTrue(place.number_rooms, 5)
-            self.assertTrue(place.name, "truc")
-
-    def testUser(self):
-        """ testing various objects """
-        user = User(name="thing")
-        if user.id in storage.all():
-            self.assertTrue(user.name, "thing")
-
-    def testAmenity(self):
-        """ testing various objects """
-        amenity = Amenity(name="Toilet")
-        if amenity.id in storage.all():
-            self.assertTrue(amenity.name, "Toilet")
-
-    def testReview(self):
-        """ testing various objects """
-        review = Review(text="rreview")
-        if review.id in storage.all():
-            self.assertTrue(review.text, "rreview")
+    def test_reload_db(self):
+        """ test for the reload """
+        self.user.save()
+        storage.reload()
+        key = self.__get_key(self.user)
+        self.assertIn(key, storage.all().keys())
