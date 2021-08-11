@@ -41,11 +41,7 @@ class test_dbstorage(unittest.TestCase):
             self.assertTrue(temp is obj)
 
 
-    def testAll(self):
-        """
-           Test the all function in DB Storage.
-        """
+    def test_all(self):
+        """ test for all """
         obj = storage.all()
         self.assertEqual(type(obj), dict)
-
-
