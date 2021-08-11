@@ -22,14 +22,14 @@ class DBStorage:
 
     def __init__(self):
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
-                               .format(getenv("HBNB_MYSQL_USER"),
-                                       getenv("HBNB_MYSQL_PWD"),
-                                       getenv("HBNB_MYSQL_HOST"),
-                                       getenv("HBNB_MYSQL_DB")),
-                               		pool_pre_ping=True)
+                                      .format(getenv("HBNB_MYSQL_USER"),
+                                              getenv("HBNB_MYSQL_PWD"),
+                                              getenv("HBNB_MYSQL_HOST"),
+                                              getenv("HBNB_MYSQL_DB")),
+                                            pool_pre_ping=True)
         Base.metadata.create_all(self.__engine)
         if getenv("HBNB_ENV") == "test":
-        	Base.metadata.drop_all(self.__engine)
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """ query on the current database session (self.__session)
@@ -67,4 +67,4 @@ class DBStorage:
     def delete(self, obj=None):
         """ delete obj from the current database session """
         if obj is not None:
-        	self.__session.delete(obj)
+            self.__session.delete(obj)
