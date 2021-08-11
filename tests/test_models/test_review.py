@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 """ Module Class tests """
+import unittest
+import inspect
+import time
+from datetime import datetime
+from unittest import mock
+import models
 from tests.test_models.test_base_model import test_basemodel
 from models.review import Review
 
@@ -14,16 +20,34 @@ class test_review(test_basemodel):
         self.value = Review
 
     def test_place_id(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.place_id), str)
+        """
+        test place id
+        """
+        review = Review()
+        self.assertTrue(hasattr(review, "place_id"))
+        if models.storage_type == "db":
+            self.assertEqual(review.place_id, None)
+        else:
+            pass
 
     def test_user_id(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.user_id), str)
+        """
+        test user id
+        """
+        review = Review()
+        self.assertTrue(hasattr(review, "user_id"))
+        if models.storage_type == "db":
+            self.assertEqual(review.user_id, None)
+        else:
+            pass
 
     def test_text(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.text), str)
+        """
+        test class attr
+        """
+        review = Review()
+        self.assertTrue(hasattr(review, "text"))
+        if models.storage_type == "db":
+            self.assertEqual(review.text, None)
+        else:
+            pass

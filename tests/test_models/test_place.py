@@ -2,7 +2,12 @@
 """ Mopdule for Place tests """
 from tests.test_models.test_base_model import test_basemodel
 from models.place import Place
-
+import unittest
+import inspect
+import time
+from datetime import datetime
+from unittest import mock
+import models
 
 class test_Place(test_basemodel):
     """ Class for tests Place """
@@ -15,54 +20,104 @@ class test_Place(test_basemodel):
 
     def test_city_id(self):
         """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.city_id), str)
+        place = Place()
+        self.assertTrue(hasattr(place, "city_id"))
+        if models.storage_type == "db":
+            self.assertEqual(place.city_id, None)
 
     def test_user_id(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.user_id), str)
+        """
+            Test Class attribute
+        """
+        place = Place()
+        self.assertTrue(hasattr(place, "user_id"))
+        if models.storage_type == "db":
+            self.assertEqual(place.user_id, None)
+        else:
+            pass
 
     def test_name(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+        """
+            Test Class attribute
+        """
+        place = Place()
+        self.assertTrue(hasattr(place, "name"))
+        if models.storage_type == "db":
+            self.assertEqual(place.name, None)
+        else:
+            pass
 
     def test_description(self):
         """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.description), str)
+        place = Place()
+        self.assertTrue(hasattr(place, "description"))
+        if models.storage_type == "db":
+            self.assertEqual(place.description, None)
+        else:
+            pass
 
-    def test_number_rooms(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.number_rooms), int)
 
     def test_number_bathrooms(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.number_bathrooms), int)
-
+        """
+            Test Class attribute
+        """
+        place = Place()
+        self.assertTrue(hasattr(place, "number_bathrooms"))
+        if models.storage_type == "db":
+            self.assertEqual(place.number_bathrooms, None)
+        else:
+            pass
+    def test_number_rooms(self):
+        """
+            Test Class attribute
+        """
+        place = Place()
+        self.assertTrue(hasattr(place, "number_rooms"))
+        if models.storage_type == "db":
+            self.assertEqual(place.number_rooms, None)
     def test_max_guest(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.max_guest), int)
+        """
+            Test Class attribute
+        """
+        place = Place()
+        self.assertTrue(hasattr(place, "max_guest"))
+        if models.storage_type == "db":
+            self.assertEqual(place.max_guest, None)
+        else:
+            pass
 
     def test_price_by_night(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.price_by_night), int)
+        """
+            Test Class attribute
+        """
+        place = Place()
+        self.assertTrue(hasattr(place, "price_by_night"))
+        if models.storage_type == "db":
+            self.assertEqual(place.price_by_night, None)
+        else:
+            pass
 
     def test_latitude(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.latitude), float)
+        """
+            Test Class attribute
+        """
+        place = Place()
+        self.assertTrue(hasattr(place, "latitude"))
+        if models.storage_type == "db":
+            self.assertEqual(place.latitude, None)
+        else:
+            pass
 
     def test_longitude(self):
-        """ various tests """
-        new = self.value()
-        self.assertEqual(type(new.latitude), float)
-
+        """
+            Test Class attribute
+        """
+        place = Place()
+        self.assertTrue(hasattr(place, "longitude"))
+        if models.storage_type == "db":
+            self.assertEqual(place.longitude, None)
+        else:
+            pass
     def test_amenity_ids(self):
         """ various tests """
         new = self.value()

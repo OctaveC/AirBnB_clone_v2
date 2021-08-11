@@ -68,11 +68,3 @@ class test_basemodel(unittest.TestCase):
         """ Various tests """
         new = self.value()
         self.assertEqual(type(new.created_at), datetime.datetime)
-
-    def test_updated_at(self):
-        """ Various tests """
-        new = self.value()
-        self.assertEqual(type(new.updated_at), datetime.datetime)
-        n = new.to_dict()
-        new = BaseModel(**n)
-        self.assertFalse(new.created_at == new.updated_at)

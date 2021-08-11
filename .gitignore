@@ -10,3 +10,5 @@ file.json
 tests/test_models/test_engine/__pycache__/
 tests/test_models/__pycache__/
 tests/__pycache__/__init__.cpython-38.pyc
+__pycache__/console.cpython-38.pyc
+tests/__pycache__/
