@@ -7,7 +7,6 @@ from sqlalchemy.orm import relationship
 from os import getenv
 
 
-
 class State(BaseModel, Base):
     """ State class """
     name = Column(String(128), nullable=False)
@@ -17,6 +16,8 @@ class State(BaseModel, Base):
         cities = relationship("City", backref="state",
                               cascade="all, delete")
     else:
+        name = ""
+
         @property
         def cities(self):
             """ Getter attribute -> Relationship
