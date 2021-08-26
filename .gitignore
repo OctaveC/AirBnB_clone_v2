@@ -13,3 +13,5 @@ tests/__pycache__/__init__.cpython-38.pyc
 __pycache__/console.cpython-38.pyc
 tests/__pycache__/
 main_place_amenities.py
+versions/
+__pycache__/
