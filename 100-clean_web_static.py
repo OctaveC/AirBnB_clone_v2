@@ -57,3 +57,17 @@ def deploy():
         return False
     deploy = do_deploy(pack)
     return deploy
+
+
+def do_clean(number=0):
+    """
+    Do some cleaning.
+    """
+    if number != int(number):
+        return False
+
+    if number == 0 or if number == 1:
+        number = 1
+
+    number = number + 1
+    local("rm -rf $(ls -d $PWD/versions/* -1t | tail -n +{})".format(number))
