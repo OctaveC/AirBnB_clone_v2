@@ -9,6 +9,7 @@ import os.path
 
 env.hosts = ["34.73.164.98", "34.139.45.21"]
 
+
 def do_pack():
     """
     Generate a .tgz archive.
@@ -20,6 +21,7 @@ def do_pack():
     if os.path.exists(location):
         return location
     return None
+
 
 def do_deploy(archive_path):
     """
@@ -45,9 +47,10 @@ def do_deploy(archive_path):
     run("ln -s " + path_dot + " /data/web_static/current")
     return True
 
+
 def deploy():
     """
-	Calls our functions
+    Calls our functions
     """
     pack = do_pack()
     if pack is None:
