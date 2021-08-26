@@ -10,18 +10,6 @@ import os.path
 env.hosts = ["34.73.164.98", "34.139.45.21"]
 
 
-def do_pack():
-    """
-    Generate a .tgz archive.
-    """
-    local("mkdir -p versions")
-    datet = datetime.now().strftime("%Y%m%d%H%M%S")
-    location = "versions/web_static_{}.tgz".format(datet)
-    local("tar -cvzf " + location + " web_static")
-    if os.path.exists(location):
-        return location
-    return None
-
 def do_deploy(archive_path):
     """
     Distributes an archive to your web servers.
