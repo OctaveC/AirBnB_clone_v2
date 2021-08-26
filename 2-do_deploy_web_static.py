@@ -10,29 +10,39 @@ import os.path
 env.hosts = ["34.73.164.98", "34.139.45.21"]
 
 
+def do_pack():
+    """
+    Generate a .tgz archive.
+    """
+    local("mkdir -p versions")
+    datet = datetime.now().strftime("%Y%m%d%H%M%S")
+    location = "versions/web_static_{}.tgz".format(datet)
+    local("tar -cvzf " + location + " web_static")
+    if os.path.exists(location):
+        return location
+    return None
+
 def do_deploy(archive_path):
     """
     Distributes an archive to your web servers.
     """
     if os.path.exists(archive_path) is False:
         return False
+    archive_split_slash = archive_path.split("/")[1]
+    archive_split_dot = archive_split_slash.split(".")[0]
 
-    try:
-        archive_name = archive_path.split("/")[-1]
-        file_name = archive_name.split(".")[0]
-        dest_path = "/tmp/{}".format(archive_name)
-        release_path = "/data/web_static/releases/{}/".format(file_name)
+    path_dot = "/data/web_static/releases/" + archive_split_dot
+    path_slash = "/tmp/" + archive_split_slash
+    put(archive_path, path_slash)
 
-        put(archive_path, dest_path)
-        run("mkdir -p {}".format(release_path))
-        run("tar -xzf {} -C {}".format(dest_path, release_path))
-        run("rm {}".format(dest_path))
-        run("mv {}web_static/* {}".format(release_path, release_path))
-        run("rm -rf {}web_static".format(release_path))
-        run("rm -rf /data/web_static/current")
-        run("ln -s {} /data/web_static/current".format(release_path))
-        print("New version deployed!")
+    run("mkdir -p " + path_dot)
+    run("tar -xzf /tmp/{} -C {}/".format(archive_split_slash, path_dot))
+    run("rm {}".format(path_slash))
 
-        return True
-    except Exception:
-        return False
+    run("mv " + path_dot + "/web_static/* " + path_dot + "/")
+
+    run("rm -rf " + path_dot + "/web_static")
+    run("rm -rf /data/web_static/current")
+    run("ln -s " + path_dot + " /data/web_static/current")
+    return True
+
