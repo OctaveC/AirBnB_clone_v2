@@ -53,7 +53,7 @@ def even_or_odd(n):
         evenorodd = "odd"
     else:
         evenorodd = "even"
-    return flask.render_template('6-number_odd_or_even.html', n=n,
+    return render_template('6-number_odd_or_even.html', n=n,
                                  evenorodd=evenorodd)
 
 
