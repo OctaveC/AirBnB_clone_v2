@@ -63,10 +63,9 @@ def do_clean(number=0):
     """
     Do some cleaning.
     """
-    if number != int(number):
-        return False
+    number = int(number)
 
-    if number == 0 or if number == 1:
+    if number == 0 or number == 1:
         number = 1
 
     number = number + 1
