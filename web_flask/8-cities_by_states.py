@@ -8,11 +8,12 @@ from models import storage
 from models.state import State
 from models.city import City
 
+
 app = Flask(__name__)
 
 
-@app.route('/states_list', strict_slashes=False)
-def states_list():
+@app.route('/cities_by_states', strict_slashes=False)
+def cities_states_list():
     """ Displays an HTML page that has a list of states """
     states = storage.all(State)
     return render_template('8-cities_by_states.html', states=states)
