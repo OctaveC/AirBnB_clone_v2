@@ -16,3 +16,5 @@ main_place_amenities.py
 __pycache__/
 7-dump.sql
 7-states_list.sql
+10-dump.sql
+10-hbnb_filters.sql
